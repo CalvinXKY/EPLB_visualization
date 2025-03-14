@@ -1,3 +1,39 @@
+# Visualize EPLB 
+To better visualize the relationship between inputs and outputs, the EPLB states are graphically represented. The following improvements have been implemented:
+
+* Reduced environmental dependencies: Replaced the torch library with the numpy library to lower the runtime requirements.
+* Enhanced input visualization: Added functionality to generate heatmaps of the inputs.
+* Expert deployment visualization: Introduced the capability to create schematic diagrams of the outputs.
+
+
+E.g:
+
+```python
+from eplb_np import rebalance_experts
+from visual_tool import reshape_map, visualize_ep_inputs, visualize_4d_array
+
+weight = [[ 90, 132,  40,  61, 104, 165,  39,   4],
+          [ 20, 107, 104,  64,  19, 197, 187, 157 ],
+          [ 100, 107, 104,  64,  20, 197, 187, 157]]
+
+num_replicas = 24
+num_groups = 2
+num_nodes = 2
+num_gpus = 8
+phy2log, log2phy, logcnt = rebalance_experts(weight, num_replicas, num_groups, num_nodes, num_gpus)
+np_phy2log = reshape_map(phy2log, num_nodes, num_gpus)
+visualize_ep_inputs(weight)
+visualize_4d_array(np_phy2log)
+```
+Input heatmap:
+
+![input_heatmap](./images/input_heatmap_demo.png)
+
+Expert deployment:
+
+![expert_deployment](./images/expert_deployment_demo.png)
+
+
 # Expert Parallelism Load Balancer (EPLB)
 
 When using expert parallelism (EP), different experts are assigned to different GPUs. Because the load of different 
