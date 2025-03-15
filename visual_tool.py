@@ -122,7 +122,7 @@ def visualize_4d_array(arr):
     plt.xlim(-0.5, total_width)
     plt.ylim(-0.5, dim0 * cell_height + 0.5)
     plt.axis('off')
-    plt.title('ELDP Visualization     ---(@kaiyuan)')
+    plt.title('EPLB Visualization     ---(@kaiyuan)')
 
     plt.tight_layout()
     plt.show()
